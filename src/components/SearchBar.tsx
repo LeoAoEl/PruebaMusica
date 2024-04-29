@@ -1,7 +1,10 @@
 import useSearch from "../hooks/useSearch";
 import { Method } from "../services/SearchApi";
+interface SearchProps {
+  handleResults: (results: string[]) => void;
+}
 
-const SearchBar = ({ handleResults }) => {
+const SearchBar = ({ handleResults }: SearchProps) => {
   const { query, setQuery, setMethod } = useSearch(handleResults);
   const handleChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
