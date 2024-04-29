@@ -1,28 +1,8 @@
-import { useState, useEffect } from "react";
-import { searchMusic, type Method } from "../services/SearchApi";
+import useSearch from "../hooks/useSearch";
+import { Method } from "../services/SearchApi";
 
 const SearchBar = ({ handleResults }) => {
-  const [query, setQuery] = useState("");
-  const [method, setMethod] = useState<Method>("artist");
-
-  const handleSearch = () => {
-    searchMusic(query, method).then((data) => {
-      handleResults(data);
-    });
-  };
-
-  useEffect(() => {
-    if (!query) return;
-
-    const timeout = setTimeout(() => {
-      handleSearch();
-    }, 300);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [query, method]);
-
+  const { query, setQuery, setMethod } = useSearch(handleResults);
   const handleChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
